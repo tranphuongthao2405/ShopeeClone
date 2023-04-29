@@ -10,8 +10,8 @@ const Footer = () => {
           </div>
           <div className='lg:col-span-2'>
             <div>
-              Quốc gia & Khu vực: Singapore Indonesia Đài Loan Thái Lan Malaysia Việt Nam Philippines Brazil México
-              Colombia Chile
+              Quốc gia & Khu vực: Singapore | Indonesia | Đài Loan | Thái Lan | Malaysia | Việt Nam | Philippines |
+              Brazil | México | Colombia | Chile
             </div>
           </div>
         </div>
