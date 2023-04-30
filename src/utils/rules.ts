@@ -1,9 +1,8 @@
 import type { RegisterOptions, UseFormGetValues } from 'react-hook-form';
-import { FormData } from 'src/pages/Register/Register';
 
 type Rules = { [key in 'email' | 'password' | 'confirm_password']?: RegisterOptions };
 
-export const getRules = (getValues?: UseFormGetValues<FormData>): Rules => ({
+export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
   email: {
     required: {
       value: true,
