@@ -1,23 +1,17 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { getRules } from 'src/utils/rules';
+import { schema, Schema } from 'src/utils/rules';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Input from 'src/components/Input';
-
-interface FormData {
-  email: string;
-  password: string;
-  confirm_password: string;
-}
 
 const Register = () => {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
-  } = useForm<FormData>();
-
-  const rules = getRules(getValues);
+  } = useForm<Schema>({
+    resolver: yupResolver(schema),
+  });
 
   const handleFormSubmit = handleSubmit((data) => {
     console.log(data);
@@ -29,51 +23,45 @@ const Register = () => {
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='rounded bg-white p-10 shadow-sm' onSubmit={handleFormSubmit} noValidate>
-              <div className='text-2xl'>Đăng Ký</div>
+              <div className='text-2xl'>Đăng ký</div>
               <Input
                 name='email'
                 register={register}
                 type='email'
-                placeholder='Email'
                 className='mt-8'
-                rules={rules.email}
                 errorMessage={errors.email?.message}
+                placeholder='Email'
               />
               <Input
                 name='password'
                 register={register}
                 type='password'
-                placeholder='Password'
                 className='mt-2'
-                rules={rules.password}
                 errorMessage={errors.password?.message}
+                placeholder='Password'
                 autoComplete='on'
               />
+
               <Input
                 name='confirm_password'
                 register={register}
                 type='password'
-                placeholder='Confirm Password'
                 className='mt-2'
-                rules={rules.confirm_password}
                 errorMessage={errors.confirm_password?.message}
+                placeholder='Confirm Password'
                 autoComplete='on'
               />
+
               <div className='mt-2'>
-                <button
-                  type='submit'
-                  className='w-full bg-red-500 px-2 py-4 text-center text-sm  uppercase text-white hover:bg-red-600'
-                >
+                <button className='w-full bg-red-500 px-2 py-4 text-center text-sm uppercase text-white hover:bg-red-600'>
                   Đăng ký
                 </button>
               </div>
-              <div className='mt-8'>
-                <div className='flex items-center justify-center'>
-                  <span className='text-gray-400'>Bạn đã có tài khoản?</span>
-                  <Link to='/login' className='ml-1 text-red-400'>
-                    Đăng nhập
-                  </Link>
-                </div>
+              <div className='mt-8 flex items-center justify-center'>
+                <span className='text-gray-400'>Bạn đã có tài khoản?</span>
+                <Link className='ml-1 text-red-400' to='/login'>
+                  Đăng nhập
+                </Link>
               </div>
             </form>
           </div>
