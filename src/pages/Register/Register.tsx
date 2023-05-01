@@ -2,7 +2,10 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { schema, Schema } from 'src/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from 'react-query';
+import { omit } from 'lodash';
 import Input from 'src/components/Input';
+import { registerAccount } from 'src/api/auth.api';
 
 const Register = () => {
   const {
@@ -13,8 +16,16 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
 
+  const registerAccountMutation = useMutation({
+    mutationFn: (body: Omit<Schema, 'confirm_password'>) => registerAccount(body),
+  });
+
   const handleFormSubmit = handleSubmit((data) => {
-    console.log(data);
+    const body = omit(data, ['confirm_password']);
+
+    registerAccountMutation.mutate(body, {
+      onSuccess: (data) => console.log(data),
+    });
   });
 
   return (
